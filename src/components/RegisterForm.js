@@ -30,7 +30,7 @@ const RegisterForm = () => {
       <h2>Register Form</h2>
       <form onSubmit={submitHandler}>
         <label htmlFor="name">
-          <b>User Name:</b>
+          <b>User Name: </b>
         </label>
         <input
           placeholder="Username"
@@ -38,8 +38,17 @@ const RegisterForm = () => {
           type="text"
           onChange={changeHandler}
         />
+        <label htmlFor="email">
+          <b>Email: </b>
+        </label>
+        <input
+          name="email"
+          type="email"
+          placeholder="Email"
+          onChange={changeHandler}
+        />
         <label htmlFor="password">
-          <b>Password:</b>
+          <b>Password: </b>
         </label>
         <input
           placeholder="Password"
@@ -48,7 +57,7 @@ const RegisterForm = () => {
           onChange={changeHandler}
         />
         <label htmlFor="confirmpassword">
-          <b>Confirm Password</b>
+          <b>Confirm Password: </b>
         </label>
         <input
           placeholder="Confirm Password"
