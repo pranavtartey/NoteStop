@@ -1,8 +1,8 @@
 import Home from "./components/Home";
 import "./App.css";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState,useContext } from "react";
 import axios from "axios";
-import { AuthProvider } from "./AuthContext";
+import { AuthContext, AuthProvider } from "./AuthContext";
 
 function App() {
   return (

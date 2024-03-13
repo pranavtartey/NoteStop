@@ -24,10 +24,15 @@ const LoginForm = () => {
       const response = await axios.post("/notes-app/user/login", formData);
       const decodedUser = jwtDecode(response.data.token);
       login(response.data.token,decodedUser.userId);
-      console.log(user.username);
     };
     LoginUser();
   };
+
+  useEffect(()=>{
+    if(user){
+      console.log(user.username)
+    }
+  })
 
   return (
     <div>

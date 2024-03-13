@@ -1,6 +1,5 @@
 require("dotenv").config();
 const mongoose = require("mongoose");
-console.log("i am here")
 const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
