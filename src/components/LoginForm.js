@@ -1,7 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
+import {AuthContext} from "../AuthContext";
+import { jwtDecode } from "jwt-decode";
 
 const LoginForm = () => {
+  const {user,login} = useContext(AuthContext);
   const [formData, setFormData] = useState({
     username: "",
     password: "",
@@ -17,12 +20,13 @@ const LoginForm = () => {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    const postData = async () => {
+    const LoginUser = async () => {
       const response = await axios.post("/notes-app/user/login", formData);
-      console.log(response.data);
-      console.log(formData);
+      const decodedUser = jwtDecode(response.data.token);
+      login(response.data.token,decodedUser.userId);
+      console.log(user.username);
     };
-    postData();
+    LoginUser();
   };
 
   return (
