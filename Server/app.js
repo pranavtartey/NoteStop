@@ -11,6 +11,8 @@ const passportLocal = require("passport-local");
 const User = require("./models/user");
 const session = require("express-session");
 const noteRoutes = require("./routes/note");
+const path = require("path");
+const cookieParser = require("cookie-parser");
 ////////////////
 
 const PORT = 8080;
@@ -42,18 +44,25 @@ db.once("open", () => {
 });
 ////////
 
+app.use(express.static(path.join("../", "build")));
+
 //Middleware used
 
 app.use(cors());
+app.use(express.json());
+app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(session(sessionConfig));
-app.use(passport.initialize());
-app.use(passport.session());
+app.use(function (req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin,X-Requested_With, Content_Type, Accept"
+  );
+  next();
+});
 
-passport.use(new passportLocal(User.authenticate()));
-passport.serializeUser(User.serializeUser());
-passport.deserializeUser(User.deserializeUser());
 /////////
 
 //Routes Specified

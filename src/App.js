@@ -1,14 +1,15 @@
-import Home from "./components/Home";
 import "./App.css";
-import React, { useEffect, useState,useContext } from "react";
-import axios from "axios";
-import { AuthContext, AuthProvider } from "./AuthContext";
+import { BrowserRouter } from "react-router-dom";
+import { AuthProvider } from "./AuthContext";
+import Nav from "./components/Nav";
 
 function App() {
   return (
-    <AuthProvider>
-      <Home />
-    </AuthProvider>
+    <BrowserRouter>
+      <AuthProvider>
+        <Nav />
+      </AuthProvider>
+    </BrowserRouter>
   );
 }
 

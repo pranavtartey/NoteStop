@@ -5,35 +5,43 @@ import { AuthContext } from "../AuthContext";
 
 const RegisterForm = () => {
   const { user, login } = useContext(AuthContext);
-  const [formData, setFormData] = useState({
-    username: "",
-    password: "",
-  });
+  // const [formData, setFormData] = useState({
+  //   username: "",
+  //   password: "",
+  // });
 
-  const changeHandler = (e) => {
-    const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
-  };
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
-  const submitHandler = (e) => {
+  const submitHandler = async (e) => {
     e.preventDefault();
-    const RegisterUser = async () => {
-      const response = await axios.post("/notes-app/user/register", formData);
-      const decodedUser = jwtDecode(response.data.token);
-      login(response.data.token, decodedUser.userId);
-      // console.log(user.username);
+
+    const data = {
+      username: username,
+      email: email,
+      password: password,
     };
-    RegisterUser();
+    // const RegisterUser = async () => {
+    //   const response = await axios.post("/notes-app/user/register", formData);
+    //   const decodedUser = jwtDecode(response.data.token);
+    //   login(response.data.token, decodedUser.userId);
+    //   // console.log(user.username);
+    // };
+    // RegisterUser();
+    try {
+      await axios.post("/notes-app/user/register", data);
+      console.log("User is created Successfully");
+    } catch (error) {
+      console.log(error);
+    }
   };
 
-  useEffect(() => {
-    if (user) {
-      console.log(user.username);
-    }
-  });
+  // useEffect(() => {
+  //   if (user) {
+  //     console.log(user.username);
+  //   }
+  // });
 
   return (
     <div>
@@ -45,7 +53,7 @@ const RegisterForm = () => {
             placeholder="Username"
             name="username"
             type="text"
-            onChange={changeHandler}
+            onChange={(e) => setUsername(e.target.value)}
           />
         </label>
         <label htmlFor="email">
@@ -54,7 +62,7 @@ const RegisterForm = () => {
             name="email"
             type="email"
             placeholder="Email"
-            onChange={changeHandler}
+            onChange={(e) => setEmail(e.target.value)}
           />
         </label>
         <label htmlFor="password">
@@ -63,7 +71,7 @@ const RegisterForm = () => {
             placeholder="Password"
             type="password"
             name="password"
-            onChange={changeHandler}
+            onChange={(e) => setPassword(e.target.value)}
           />
         </label>
         <button type="submit">Register</button>

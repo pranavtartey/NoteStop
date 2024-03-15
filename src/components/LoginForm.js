@@ -1,38 +1,31 @@
 import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
-import {AuthContext} from "../AuthContext";
-import { jwtDecode } from "jwt-decode";
+import { AuthContext } from "../AuthContext";
+import { useNavigate, Link } from "react-router-dom";
 
 const LoginForm = () => {
-  const {user,login} = useContext(AuthContext);
-  const [formData, setFormData] = useState({
-    username: "",
-    password: "",
-  });
+  const navigate = useNavigate();
+  const { dispatch } = useContext(AuthContext);
+  const { user, login } = useContext(AuthContext);
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
 
-  const changeHandler = (e) => {
-    const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
-  };
-
-  const submitHandler = (e) => {
+  const submitHandler = async (e) => {
     e.preventDefault();
-    const LoginUser = async () => {
-      const response = await axios.post("/notes-app/user/login", formData);
-      const decodedUser = jwtDecode(response.data.token);
-      login(response.data.token,decodedUser.userId);
-    };
-    LoginUser();
-  };
 
-  useEffect(()=>{
-    if(user){
-      console.log(user.username)
+    const data = {
+      username: username,
+      password: password,
+    };
+
+    try {
+      await axios.post("/notes-app/user/login", data);
+      dispatch({ type: "isLogin", payload: true });
+      navigate("/");
+    } catch (error) {
+      console.log(error);
     }
-  })
+  };
 
   return (
     <div>
@@ -41,12 +34,26 @@ const LoginForm = () => {
         <label htmlFor="name">
           <b>User Name:</b>
         </label>
-        <input placeholder="Username" name="username" type="text" onChange={changeHandler} />
+        <input
+          placeholder="Username"
+          name="username"
+          type="text"
+          onChange={(e) => setUsername(e.target.value)}
+        />
         <label htmlFor="password">
           <b>Password:</b>
         </label>
-        <input placeholder="Password" type="password" name="password" onChange={changeHandler} />
+        <input
+          placeholder="Password"
+          type="password"
+          name="password"
+          onChange={(e) => setPassword(e.target.value)}
+        />
         <button type="submit">Login</button>
+        <p>
+          Don't have an account
+          <Link to="/register">Create Account</Link>
+        </p>
       </form>
     </div>
   );
