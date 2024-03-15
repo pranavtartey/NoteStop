@@ -1,37 +1,64 @@
 import React, { useState, useEffect, useContext } from "react";
+import { AuthContext } from "../AuthContext";
 import axios from "axios";
 import LoginForm from "./LoginForm";
 import RegisterForm from "./RegisterForm";
-import { AuthContext } from "../AuthContext";
+import NewNoteForm from "./NewNoteForm";
+
 const Home = (props) => {
   const [hasAccount, setHasAccount] = useState(false);
+  const [isNewNote, setIsNewNote] = useState(false);
   const { user, logout } = useContext(AuthContext);
 
   const logoutHandler = async () => {
-    const response = await axios.post("/notes-app/user/logout");
+    await axios.post("/notes-app/user/logout");
     logout();
   };
 
   const signupHandler = () => {
     setHasAccount(false);
-  }
+  };
 
   const signinHandler = () => {
     setHasAccount(true);
+  };
+
+  const cancelHandler = () => {
+    setIsNewNote(false);
+  };
+
+  const addNoteHandler = () => {
+    setIsNewNote(true);
+  };
+
+  const newNoteSubmitHandler = () => {
+    // updateUser(userData);
+    setIsNewNote(false);
   }
 
   useEffect(() => {
     if (user) {
       console.log(user);
     }
+    
   });
-
+  
   return (
     <div>
       {user ? (
         <div>
           <p>Welcome,{user.username}</p>
-          <button onClick={logoutHandler}>Logout</button>
+          {isNewNote ? (
+            <div>
+              <NewNoteForm onSubmit={newNoteSubmitHandler} />
+              <button onClick={cancelHandler}>Cancel</button>
+            </div>
+          ) : (
+            <div>
+              <button onClick={addNoteHandler}>Add Note</button>
+              <button onClick={logoutHandler}>Logout</button>
+            </div>
+          )}
         </div>
       ) : (
         <div>

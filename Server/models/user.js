@@ -6,7 +6,13 @@ const userSchema = new mongoose.Schema({
     email : {
         type : String,
         required : [true, "Email is required"]
-    }
+    },
+    notes : [
+        {
+            type : mongoose.Schema.Types.ObjectId,
+            ref : "Note"
+        }
+    ]
 })
 
 userSchema.plugin(passportLocalMongoose);
