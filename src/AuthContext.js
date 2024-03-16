@@ -1,5 +1,4 @@
-import React, { createContext, useState, useEffect, useReducer } from "react";
-import { jwtDecode } from "jwt-decode";
+import React, { createContext, useReducer } from "react";
 
 const AuthContext = createContext();
 const initialState = false;
@@ -12,7 +11,6 @@ const reducer = (state, action) => {
 };
 
 const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
   const [state, dispatch] = useReducer(reducer, initialState);
 
   // const login = (token, userData) => {

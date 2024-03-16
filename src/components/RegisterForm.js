@@ -1,14 +1,7 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState } from "react";
 import axios from "axios";
-import { jwtDecode } from "jwt-decode";
-import { AuthContext } from "../AuthContext";
 
 const RegisterForm = () => {
-  const { user, login } = useContext(AuthContext);
-  // const [formData, setFormData] = useState({
-  //   username: "",
-  //   password: "",
-  // });
 
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
@@ -22,13 +15,8 @@ const RegisterForm = () => {
       email: email,
       password: password,
     };
-    // const RegisterUser = async () => {
-    //   const response = await axios.post("/notes-app/user/register", formData);
-    //   const decodedUser = jwtDecode(response.data.token);
-    //   login(response.data.token, decodedUser.userId);
-    //   // console.log(user.username);
-    // };
-    // RegisterUser();
+
+
     try {
       await axios.post("/notes-app/user/register", data);
       console.log("User is created Successfully");
@@ -37,11 +25,6 @@ const RegisterForm = () => {
     }
   };
 
-  // useEffect(() => {
-  //   if (user) {
-  //     console.log(user.username);
-  //   }
-  // });
 
   return (
     <div>

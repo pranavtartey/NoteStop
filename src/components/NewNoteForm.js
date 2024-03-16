@@ -1,31 +1,25 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState } from "react";
 import axios from "axios";
-import { AuthContext } from "../AuthContext";
-// import { response } from "express";
-
+import {useNavigate} from "react-router-dom";
 const NewNoteForm = (props) => {
-    const {user} = useContext(AuthContext);
-  const [formData, setFormData] = useState({
-    subject: "",
-    note: "",
-  });
-
-  const changeHandler = (e) => {
-    const {name,value} = e.target;
-    setFormData({
-        ...formData,
-        [name]: value
-    });
+  const [subject, setSubject] = useState("");
+  const [note, setNote] = useState("");
+  const navigate = useNavigate();
+  const data = {
+    subject: subject,
+    note: note,
   };
 
-  const submitHandler = (e) => {
+  const submitHandler = async (e) => {
     e.preventDefault();
-    const createNote = async() => {
-    await axios.post(`/notes-app/${user._id}/note/new-note`,formData);
-    props.onSubmit();
+    try {
+      await axios.post("/notes-app/note/new-note", data);
+      console.log("The note was created successfully");
+      navigate("/");
+    } catch (error) {
+      console.log(error);
     }
-    createNote();
-  }
+  };
 
   return (
     <div>
@@ -34,12 +28,22 @@ const NewNoteForm = (props) => {
         <label htmlFor="subject">
           <b>Subject: </b>
         </label>
-          <textarea name="subject" onChange={changeHandler} rows={5} cols={50} />
+        <textarea
+          name="subject"
+          onChange={(e) => setSubject(e.target.value)}
+          rows={5}
+          cols={50}
+        />
         <br />
         <label htmlFor="note">
           <b>Note: </b>
         </label>
-          <textarea name="note" onChange={changeHandler} rows={5} cols={50} />
+        <textarea
+          name="note"
+          onChange={(e) => setNote(e.target.value)}
+          rows={5}
+          cols={50}
+        />
         <button type="submit">Create Note</button>
       </form>
     </div>

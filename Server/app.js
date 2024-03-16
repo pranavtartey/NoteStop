@@ -67,7 +67,7 @@ app.use(function (req, res, next) {
 
 //Routes Specified
 app.use("/notes-app/user", userRoutes);
-app.use("/notes-app/:userid/note", noteRoutes);
+app.use("/notes-app/note", noteRoutes);
 
 app.get("/", (req, res) => {
   res.send("This app is working fine ;)");

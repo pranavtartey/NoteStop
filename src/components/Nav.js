@@ -6,6 +6,7 @@ import Home from "./Home";
 import Logout from "./Logout";
 import LoginForm from "./LoginForm";
 import RegisterForm from "./RegisterForm";
+import NewNoteForm from "./NewNoteForm";
 
 const Nav = () => {
   const { state, dispatch } = useContext(AuthContext);
@@ -32,6 +33,7 @@ const Nav = () => {
         {state ? (
           <>
             <Route path="" exact element={<Home />} />
+            <Route path="newnote" element={<NewNoteForm />} />
             <Route path="logout" exact element={<Logout />} />
           </>
         ) : (

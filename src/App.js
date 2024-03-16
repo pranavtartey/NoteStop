@@ -5,11 +5,13 @@ import Nav from "./components/Nav";
 
 function App() {
   return (
-    <BrowserRouter>
-      <AuthProvider>
-        <Nav />
-      </AuthProvider>
-    </BrowserRouter>
+    <>
+      <BrowserRouter>
+        <AuthProvider>
+          <Nav />
+        </AuthProvider>
+      </BrowserRouter>
+    </>
   );
 }
 
