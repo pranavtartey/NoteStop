@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import axios from "axios";
 import {useNavigate} from "react-router-dom";
+import Navigation from "./Navigation";
+
 const NewNoteForm = (props) => {
   const [subject, setSubject] = useState("");
   const [note, setNote] = useState("");
@@ -21,8 +23,13 @@ const NewNoteForm = (props) => {
     }
   };
 
+  const homeButtonHandler = () => {
+    navigate("/");
+  }
+
   return (
     <div>
+      <Navigation />
       <h2>New Note</h2>
       <form onSubmit={submitHandler}>
         <label htmlFor="subject">
@@ -46,6 +53,7 @@ const NewNoteForm = (props) => {
         />
         <button type="submit">Create Note</button>
       </form>
+      <button onClick={homeButtonHandler}>Home</button>
     </div>
   );
 };

@@ -38,8 +38,8 @@ const Nav = () => {
           </>
         ) : (
           <>
+            <Route exact path="register" element={<RegisterForm />} />
             <Route exact path="login" element={<LoginForm />} />
-            <Route exact path="register" elemtnt={<RegisterForm />} />
           </>
         )}
       </Routes>

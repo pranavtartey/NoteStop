@@ -26,6 +26,10 @@ const LoginForm = () => {
     }
   };
 
+  const createAccountHandler = () => {
+    navigate("/register")
+  }
+
   return (
     <div>
       <h2>Login Form</h2>
@@ -51,6 +55,7 @@ const LoginForm = () => {
         <button type="submit">Login</button>
         <p>
           Don't have an account
+          <button onClick={createAccountHandler}>Create Account</button>
           <Link to="/register">Create Account</Link>
         </p>
       </form>
