@@ -59,3 +59,9 @@ module.exports.logout = async (req, res, next) => {
   res.clearCookie("Authorization", { path: "/" });
   res.status(200).send("logout");
 };
+
+module.exports.getCurrentUser = async (req, res) => {
+  const user = await User.findById(req.name.userId).populate("notes");
+  console.log(user);
+  res.status(201).json(user);
+};
