@@ -33,7 +33,8 @@ const LoginForm = () => {
 
   return (
     <MDBContainer>
-      <h5 className="m-4">NoteStop</h5>
+      <h1 className="m-4">NoteStop</h1>
+      <h3>Login</h3>
       <div className="boxes mt-5 mb-5">
         <div className="heading-login">Sign into your NoteStop account
         </div>

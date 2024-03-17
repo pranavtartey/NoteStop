@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router";
 import {
   MDBBtn,
   MDBCard,
@@ -8,14 +9,12 @@ import {
   MDBCheckbox,
   MDBCol,
   MDBInput,
-  MDBListGroup,
-  MDBListGroupItem,
   MDBRow,
-  MDBTextArea,
   MDBTypography,
 } from "mdb-react-ui-kit";
 
 const RegisterForm = () => {
+  const navigate = useNavigate()
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -32,6 +31,7 @@ const RegisterForm = () => {
     try {
       await axios.post("/notes-app/user/register", data);
       console.log("User is created Successfully");
+      navigate("/login")
     } catch (error) {
       console.log(error);
     }
@@ -39,12 +39,12 @@ const RegisterForm = () => {
 
   return (
     <div className="mx-auto mt-5" style={{ maxWidth: "900px" }}>
-      <h5 className="m-4">NoteStop</h5>
+      <h1 className="m-4">NoteStop</h1>
       <MDBRow>
         <MDBCol md="8" className="mb-4">
           <MDBCard className="mb-4">
             <MDBCardHeader className="py-3">
-              <MDBTypography tag="h5" className="mb-0">
+              <MDBTypography tag="h3" className="mb-0">
                 Register
               </MDBTypography>
             </MDBCardHeader>
@@ -56,20 +56,26 @@ const RegisterForm = () => {
                       label="Username"
                       type="text"
                       onChange={(e) => setUsername(e.target.value)}
+                      id="form1"
                     />
                   </MDBCol>
                   <MDBCol>
                     <MDBInput
                       label="Email"
                       type="email"
+                      value={email}
                       onChange={(e) => setEmail(e.target.value)}
+                      id="form2"
                     />
                   </MDBCol>
                   <MDBCol>
                     <MDBInput
-                      lable="Password"
                       type="password"
+                      label="Password"
+                      value={password}
                       onChange={(e) => setPassword(e.target.value)}
+                      className="w-100 mb-4 p-2"
+                      id="form3"
                     />
                   </MDBCol>
                 </MDBRow>
