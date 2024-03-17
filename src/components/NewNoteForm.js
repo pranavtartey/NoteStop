@@ -23,9 +23,9 @@ const NewNoteForm = (props) => {
     }
   };
 
-  const homeButtonHandler = () => {
-    navigate("/");
-  }
+  // const homeButtonHandler = () => {
+  //   navigate("/");
+  // }
 
   return (
     <div>
@@ -53,7 +53,7 @@ const NewNoteForm = (props) => {
         />
         <button type="submit">Create Note</button>
       </form>
-      <button onClick={homeButtonHandler}>Home</button>
+      {/* <button onClick={homeButtonHandler}>Home</button> */}
     </div>
   );
 };
